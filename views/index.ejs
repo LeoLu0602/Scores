@@ -4,10 +4,20 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/styles/styles.css">
+        <script src="/js/script.js" async></script>
         <title>Sports</title>
     </head>
     <body>
-        <div></div>
-        <script src="/js/script.js"></script>
+        <!-- navigation bar -->
+        <div class="topnav">
+            <div id="NBA" class="active" onclick="clickOn('NBA')">NBA</div>
+            <div id="NFL" onclick="clickOn('NFL')">NFL</div>
+            <div id="Bundesliga" onclick="clickOn('Bundesliga')">Bundesliga</div>
+            <div id="Premier League" onclick="clickOn('Premier League')">Premier League</div>
+        </div>
+
+        <div id="teams"></div>
+        <div id="games"></div>
     </body>
 </html>
