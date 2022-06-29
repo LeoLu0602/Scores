@@ -57,3 +57,41 @@ body {
 .chosen {
     background-color: lightgreen;
 }
+
+#games {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 80%;
+    padding-top: 12vh;
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.game {
+    display: block;
+    width: 18vw;
+    height: auto;
+    background-color: #ddd;
+    margin-bottom: 2vh;
+    margin-right: 1vw;
+    .game-team {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding-top: 0.7vh;
+        padding-bottom: 0.7vh;
+        .team-name {
+            padding-left: 1vw;
+        }
+        .team-score {
+            padding-right: 1vw;
+        }
+    }
+}
