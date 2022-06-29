@@ -61,11 +61,21 @@ function getLastGame(league, teamId, add) { // get last game of the team and upd
             JSON.stringify() is used to prevent duplicate "latestGame" from being added to displaySet
             JSON.parse() is the reverse of JSON.stringify()
             */
-            if (add && !displaySet.has(JSON.stringify(latestGame))) {
-                displaySet.add(JSON.stringify(latestGame));
+            if (add) {
+                if (displaySet.has(JSON.stringify(latestGame))) {
+                    gameCount[latestGameId] += 1;
+                } 
+                else if (!displaySet.has(JSON.stringify(latestGame))) {
+                    gameCount[latestGameId] = 1;
+                    displaySet.add(JSON.stringify(latestGame));
+                }
             }
-            else if (!add && !chosenTeams[league].has(latestGame['home_team']['id'] - 1) && !chosenTeams[league].has(latestGame['visitor_team']['id'] - 1)) {
-                displaySet.delete(JSON.stringify(latestGame))
+            else if (!add) {
+                gameCount[latestGameId] -= 1;
+                if (gameCount[latestGameId] == 0) {
+                    delete gameCount[latestGameId]
+                    displaySet.delete(JSON.stringify(latestGame));
+                }
             }
             displayGames();
         }
@@ -80,11 +90,21 @@ function getLastGame(league, teamId, add) { // get last game of the team and upd
                         latestGame = game;
                     }
                 });
-                if (add && !displaySet.has(JSON.stringify(latestGame))) {
-                    displaySet.add(JSON.stringify(latestGame));
+                if (add) {
+                    if (displaySet.has(JSON.stringify(latestGame))) {
+                        gameCount[latestGameId] += 1;
+                    } 
+                    else if (!displaySet.has(JSON.stringify(latestGame))) {
+                        gameCount[latestGameId] = 1;
+                        displaySet.add(JSON.stringify(latestGame));
+                    }
                 }
-                else if (!add && !chosenTeams[league].has(latestGame['home_team']['id'] - 1) && !chosenTeams[league].has(latestGame['visitor_team']['id'] - 1)) {
-                    displaySet.delete(JSON.stringify(latestGame))
+                else if (!add) {
+                    gameCount[latestGameId] -= 1;
+                    if (gameCount[latestGameId] == 0) {
+                        delete gameCount[latestGameId]
+                        displaySet.delete(JSON.stringify(latestGame));
+                    }
                 }
                 displayGames();
             });
@@ -143,6 +163,7 @@ let BundesligaTeams; // array
 let PremierLeagueTeams; // array
 let chosenTeams = {}; // store indices in array
 let displaySet = new Set(); // store games to display
+let gameCount = {}; // key: game id, val: number of teams having this game as the latest game
 
 chosenTeams['NBA'] = new Set();
 chosenTeams['NFL'] = new Set();

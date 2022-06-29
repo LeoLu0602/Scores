@@ -61,14 +61,15 @@ body {
 }
 
 #games {
-    position: fixed;
-    top: 0;
+    position: absolute;
+    top: 10vh;
     left: 20vw;
-    height: 100%;
+    height: 90%;
     width: 80%;
-    padding-top: 12vh;
-    padding-left: 1vw;
-    padding-right: 1vw;
+    padding-top: 3vh;
+    padding-bottom: 3vh;
+    padding-left: 2.5vw;
+    overflow: auto;
 }
 
 .row {
