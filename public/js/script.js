@@ -28,7 +28,6 @@ function renderPage(league) {
             for (let i = 0; i < nbaTeams.length; i++) {
                 teams.innerHTML += `<div id="${nbaTeams[i]['full_name']}" class="team-card" onclick="clickThisTeam(${i}, '${league}')">${nbaTeams[i]['full_name']}</div>`;
             }
-            teams.innerHTML += '<br>';
         });
     }
     else if (league == 'NFL') {
