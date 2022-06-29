@@ -10,11 +10,12 @@ function clickThisTeam(i, league) {
     document.getElementById(nbaTeams[i]['full_name']).classList.toggle('chosen');
     if (!chosenTeams[league].has(i)) { // add a game to displaySet
         chosenTeams[league].add(i);
+        getLastGame(league, i + 1, true); // true -> add
     }
     else if (chosenTeams[league].has(i)) { // remove a game from displaySet
         chosenTeams[league].delete(i);
+        getLastGame(league, i + 1, false); // false -> remove
     }
-    getLastGame(i + 1);
 }
 
 function renderPage(league) {
@@ -41,7 +42,7 @@ function renderPage(league) {
     }
 }
 
-function getLastGame(teamId) { // get last game of the team and update displaySet
+function getLastGame(league, teamId, add) { // get last game of the team and update displaySet
     fetch(`https://www.balldontlie.io/api/v1/games?seasons[]=2021&team_ids[]=${teamId}&per_page=100&page=1`)
     .then(res => res.json())
     .then((data) => {
@@ -60,7 +61,12 @@ function getLastGame(teamId) { // get last game of the team and update displaySe
             JSON.stringify() is used to prevent duplicate "latestGame" from being added to displaySet
             JSON.parse() is the reverse of JSON.stringify()
             */
-            displaySet.has(JSON.stringify(latestGame)) ? displaySet.delete(JSON.stringify(latestGame)) : displaySet.add(JSON.stringify(latestGame));
+            if (add && !displaySet.has(JSON.stringify(latestGame))) {
+                displaySet.add(JSON.stringify(latestGame));
+            }
+            else if (!add && !chosenTeams[league].has(latestGame['home_team']['id'] - 1) && !chosenTeams[league].has(latestGame['visitor_team']['id'] - 1)) {
+                displaySet.delete(JSON.stringify(latestGame))
+            }
             displayGames();
         }
         else if (data.meta.total_pages == 2) {
@@ -74,7 +80,12 @@ function getLastGame(teamId) { // get last game of the team and update displaySe
                         latestGame = game;
                     }
                 });
-                displaySet.has(JSON.stringify(latestGame)) ? displaySet.delete(JSON.stringify(latestGame)) : displaySet.add(JSON.stringify(latestGame));
+                if (add && !displaySet.has(JSON.stringify(latestGame))) {
+                    displaySet.add(JSON.stringify(latestGame));
+                }
+                else if (!add && !chosenTeams[league].has(latestGame['home_team']['id'] - 1) && !chosenTeams[league].has(latestGame['visitor_team']['id'] - 1)) {
+                    displaySet.delete(JSON.stringify(latestGame))
+                }
                 displayGames();
             });
         }
