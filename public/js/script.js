@@ -153,8 +153,8 @@ function displayGames() {
         team1Score.innerHTML = `${newGame['home_team_score']}`;
         team2Name.innerHTML = `${newGame['visitor_team']['name']}`;
         team2Score.innerHTML = `${newGame['visitor_team_score']}`;
-        team1Logo.style.backgroundImage = `url(/pic/NBA/${newGame['home_team']['name']}.png)`;
-        team2Logo.style.backgroundImage = `url(/pic/NBA/${newGame['visitor_team']['name']}.png)`;
+        team1Logo.style.backgroundImage = `url("/pic/NBA/${newGame['home_team']['name']}.png")`;
+        team2Logo.style.backgroundImage = `url("/pic/NBA/${newGame['visitor_team']['name']}.png")`;
 
         if (i % 4 == 0) {
             let newRow = document.createElement('div');
