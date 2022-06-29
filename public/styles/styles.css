@@ -68,7 +68,7 @@ body {
   width: 80%;
   padding-top: 3vh;
   padding-bottom: 3vh;
-  padding-left: 2.5vw;
+  padding-left: 1vw;
   overflow: auto;
 }
 
@@ -80,13 +80,13 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
+  margin-bottom: 1vh;
 }
 
 .game {
-  display: block;
   width: 18vw;
   height: auto;
-  background-color: #ddd;
+  border: solid 0.1em #ddd;
   margin-bottom: 2vh;
   margin-right: 1vw;
 }
@@ -99,18 +99,33 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  padding-top: 0.7vh;
-  padding-bottom: 0.7vh;
+}
+
+.game .game-team .team-logo {
+  margin-top: 1vh;
+  margin-left: 1vw;
+  height: 8vh;
+  width: 8vh;
+  background-repeat: no-repeat;
+  background-size: 100%;
 }
 
 .game .game-team .team-name {
-  padding-left: 1vw;
+  width: 10vw;
+  padding-top: 2vh;
+  margin-left: 2vw;
+  font-size: 1em;
+  text-align: left;
 }
 
 .game .game-team .team-score {
-  padding-right: 1vw;
+  width: 10vw;
+  padding-top: 2vh;
+  font-size: 1em;
+  text-align: center;
+}
+
+.win {
+  font-weight: bold;
 }
 /*# sourceMappingURL=styles.css.map */

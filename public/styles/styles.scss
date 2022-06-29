@@ -68,33 +68,49 @@ body {
     width: 80%;
     padding-top: 3vh;
     padding-bottom: 3vh;
-    padding-left: 2.5vw;
+    padding-left: 1vw;
     overflow: auto;
 }
 
 .row {
     display: flex;
     flex-direction: row;
+    margin-bottom: 1vh;
 }
 
 .game {
-    display: block;
     width: 18vw;
     height: auto;
-    background-color: #ddd;
+    border: solid 0.1em #ddd;
     margin-bottom: 2vh;
     margin-right: 1vw;
     .game-team {
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
-        padding-top: 0.7vh;
-        padding-bottom: 0.7vh;
+        .team-logo {
+            margin-top: 1vh;
+            margin-left: 1vw;
+            height: 8vh;
+            width: 8vh;
+            background-repeat: no-repeat;
+            background-size: 100%;
+        }
         .team-name {
-            padding-left: 1vw;
+            width: 10vw;
+            padding-top: 2vh;
+            margin-left: 2vw;
+            font-size: 1em;
+            text-align: left;        
         }
         .team-score {
-            padding-right: 1vw;
+            width: 10vw;
+            padding-top: 2vh;
+            font-size: 1em;
+            text-align: center;    
         }
     }
+}
+
+.win {
+    font-weight: bold;
 }

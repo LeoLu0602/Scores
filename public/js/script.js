@@ -121,24 +121,40 @@ function displayGames() {
 
         let game = document.createElement('div');
         let team1 = document.createElement('div');
+        let team1Logo = document.createElement('div');
+        let team1NameScore = document.createElement('div');
         let team1Name = document.createElement('div');
         let team1Score = document.createElement('div');
         let team2 = document.createElement('div');
+        let team2Logo = document.createElement('div');
+        let team2NameScore = document.createElement('div');
         let team2Name = document.createElement('div');
         let team2Score = document.createElement('div');
 
         game.className = 'game';
         team1.className = 'game-team';
+        team1Logo.className = 'team-logo';
         team1Name.className = 'team-name';
         team1Score.className = 'team-score';
         team2.className = 'game-team';
+        team2Logo.className = 'team-logo';
         team2Name.className = 'team-name';
         team2Score.className = 'team-score';
+        if (newGame['home_team_score'] > newGame['visitor_team_score']) {
+            team1Name.classList.add('win');
+            team1Score.classList.add('win');
+        }
+        else if (newGame['home_team_score'] < newGame['visitor_team_score']) {
+            team2Name.classList.add('win');
+            team2Score.classList.add('win');
+        }
 
         team1Name.innerHTML = `${newGame['home_team']['name']}`;
         team1Score.innerHTML = `${newGame['home_team_score']}`;
         team2Name.innerHTML = `${newGame['visitor_team']['name']}`;
         team2Score.innerHTML = `${newGame['visitor_team_score']}`;
+        team1Logo.style.backgroundImage = `url(/pic/NBA/${newGame['home_team']['name']}.png)`;
+        team2Logo.style.backgroundImage = `url(/pic/NBA/${newGame['visitor_team']['name']}.png)`;
 
         if (i % 4 == 0) {
             let newRow = document.createElement('div');
@@ -150,8 +166,10 @@ function displayGames() {
         document.getElementById(`row${Math.floor(i / 4)}`).appendChild(game);
         game.appendChild(team1);
         game.appendChild(team2);
+        team1.appendChild(team1Logo);
         team1.appendChild(team1Name);
         team1.appendChild(team1Score);
+        team2.appendChild(team2Logo);
         team2.appendChild(team2Name);
         team2.appendChild(team2Score);
     }
@@ -163,7 +181,11 @@ let BundesligaTeams; // array
 let PremierLeagueTeams; // array
 let chosenTeams = {}; // store indices in array
 let displaySet = new Set(); // store games to display
-let gameCount = {}; // key: game id, val: number of teams having this game as the latest game
+let gameCount = {};
+/*
+gameCount is used to solve "remove teams bug"  
+key: game id, val: number of teams having this game as the latest game
+*/
 
 chosenTeams['NBA'] = new Set();
 chosenTeams['NFL'] = new Set();
