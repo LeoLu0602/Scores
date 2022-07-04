@@ -1,48 +1,33 @@
-function clickThisLeague(league) {
-    document.getElementById('NBA').className = (league == 'NBA') ? 'active' : '';
-    document.getElementById('NFL').className = (league == 'NFL') ? 'active' : '';
-    document.getElementById('Bundesliga').className = (league == 'Bundesliga') ? 'active' : '';
-    document.getElementById('Premier League').className = (league == 'Premier League') ? 'active' : '';
-    renderPage(league);
-}
-
-function clickThisTeam(i, league) {
+function clickThisTeam(i) {
     document.getElementById(nbaTeams[i]['full_name']).classList.toggle('chosen');
-    if (!chosenTeams[league].has(i)) { // add a game to displaySet
-        chosenTeams[league].add(i);
-        getLastGame(league, i + 1, true); // true -> add
+    if (!chosenTeams.has(i)) { // add a game to displaySet
+        chosenTeams.add(i);
+        getLastGame(i + 1, true); // true -> add
     }
-    else if (chosenTeams[league].has(i)) { // remove a game from displaySet
-        chosenTeams[league].delete(i);
-        getLastGame(league, i + 1, false); // false -> remove
+    else if (chosenTeams.has(i)) { // remove a game from displaySet
+        chosenTeams.delete(i);
+        getLastGame(i + 1, false); // false -> remove
     }
 }
 
-function renderPage(league) {
-    if (league == 'NBA') {
-        fetch('https://www.balldontlie.io/api/v1/teams')
-        .then(res => res.json())
-        .then((data) => {
-            nbaTeams = data.data;
-            let teams = document.getElementById('teams');
-            teams.innerHTML = '';
-            for (let i = 0; i < nbaTeams.length; i++) {
-                teams.innerHTML += `<div id="${nbaTeams[i]['full_name']}" class="team-card" onclick="clickThisTeam(${i}, '${league}')">${nbaTeams[i]['full_name']}</div>`;
-            }
+function renderPage() {
+    fetch('https://www.balldontlie.io/api/v1/teams')
+    .then(res => res.json())
+    .then((data) => {
+        nbaTeams = data.data;
+        let teams = document.getElementById('teams');
+        teams.innerHTML = '';
+        for (let i = 0; i < nbaTeams.length; i++) {
+            teams.innerHTML += `<div id="${nbaTeams[i]['full_name']}" class="team-card" onclick="clickThisTeam(${i})">${nbaTeams[i]['full_name']}</div>`;
+        }
+        let defaultTeams = [1, 12, 13, 16];
+        defaultTeams.forEach((i) => {
+            clickThisTeam(i);
         });
-    }
-    else if (league == 'NFL') {
-
-    }
-    else if (league == 'Bundesliga') {
-        
-    }
-    else if (league == 'Premier League') {
-        
-    }
+    });
 }
 
-function getLastGame(league, teamId, add) { // get last game of the team and update displaySet
+function getLastGame(teamId, add) { // get last game of the team and update displaySet
     fetch(`https://www.balldontlie.io/api/v1/games?seasons[]=2021&team_ids[]=${teamId}&per_page=100&page=1`)
     .then(res => res.json())
     .then((data) => {
@@ -122,12 +107,10 @@ function displayGames() {
         let game = document.createElement('div');
         let team1 = document.createElement('div');
         let team1Logo = document.createElement('div');
-        let team1NameScore = document.createElement('div');
         let team1Name = document.createElement('div');
         let team1Score = document.createElement('div');
         let team2 = document.createElement('div');
         let team2Logo = document.createElement('div');
-        let team2NameScore = document.createElement('div');
         let team2Name = document.createElement('div');
         let team2Score = document.createElement('div');
 
@@ -176,10 +159,7 @@ function displayGames() {
 }
 
 let nbaTeams; // array
-let nflTeams; // array
-let BundesligaTeams; // array
-let PremierLeagueTeams; // array
-let chosenTeams = {}; // store indices in array
+let chosenTeams = new Set(); // store indices in array
 let displaySet = new Set(); // store games to display
 let gameCount = {};
 /*
@@ -187,8 +167,4 @@ gameCount is used to solve "remove teams bug"
 key: game id, val: number of teams having this game as the latest game
 */
 
-chosenTeams['NBA'] = new Set();
-chosenTeams['NFL'] = new Set();
-chosenTeams['Bundesliga'] = new Set();
-chosenTeams['Premier League'] = new Set();
-renderPage('NBA'); // entry point: NBA
+renderPage(); // entry point: NBA
