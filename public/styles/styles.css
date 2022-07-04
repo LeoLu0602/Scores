@@ -107,11 +107,11 @@ body {
   height: 8vh;
   width: 8vh;
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: 90%;
 }
 
 .game .game-team .team-name {
-  width: 10vw;
+  width: 12vw;
   padding-top: 2vh;
   margin-left: 2vw;
   font-size: 1em;
@@ -119,10 +119,11 @@ body {
 }
 
 .game .game-team .team-score {
-  width: 10vw;
+  width: 4vw;
   padding-top: 2vh;
   font-size: 1em;
-  text-align: center;
+  text-align: right;
+  margin-right: 1vw;
 }
 
 .win {
